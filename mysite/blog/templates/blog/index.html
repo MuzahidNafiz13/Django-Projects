@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog List</title>
+</head>
+<body>
+    <h1>Blog List</h1>
+    <ul>
+        {% for blog in blog_list %}
+            <li>
+                <h2>{{ blog.title | capfirst }}</h2>
+                <p>{{ blog.content | truncatechars:20 }}</p>
+                <p>Date: {{ blog.date | date:"F j, Y" }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+    <p>List of fruits: {{ fruits | join:", " }}</p>
+</body>
+</html>

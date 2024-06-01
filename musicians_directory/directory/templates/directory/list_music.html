@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Musicians Directory</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1>Musicians Directory</h1>
+    <a href="{% url 'musician_create' %}" class="btn btn-primary mb-3">Add Musician</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Musician Name</th>
+            <th>Email</th>
+            <th>Instrument Type</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for musician in musicians %}
+        <tr>
+            <td>{{ musician.id }}</td>
+            <td><a href="{% url 'musician_update' musician.id %}">{{ musician.first_name }} {{ musician.last_name }}</a></td>
+            <td>{{ musician.email }}</td>
+            <td>{{ musician.instrument_type }}</td>
+            <td>
+                <a href="{% url 'musician_update' musician.id %}" class="btn btn-warning btn-sm">Edit</a>
+                <form action="{% url 'musician_delete' musician.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
