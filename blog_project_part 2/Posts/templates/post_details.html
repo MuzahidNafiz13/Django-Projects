@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col-12">
+    <div class="card mx-2">
+      <div class="card-body">
+        <img src="{{posts.image.url}}" class="card-img-top" style="width:20%">
+        <h5 class="card-title">{{posts.title}}</h5>
+        <p class="card-text">{{posts.content}}</p>
+        <p>Author: {{posts.author.first_name}} {{posts.author.last_name}}</p>
+        <p>Category:
+          {% for cat in posts.category.all %}
+            <button class="btn btn-primary btn-sm m-2" disabled>{{cat.name}}</button>
+          {% endfor %}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card m-2">
+    <h5 class="p-3">Total Comments: {{comments|length}}</h5>
+    {% for comment in comments %}
+    <div class="card-body border m-2">
+            <p><b>{{comment.name}}</b> {{comment.created_on}}</p>
+            <p>{{comment.body}}</p>
+        </div>
+        {% endfor %}
+  </div>
+
+  <div class="card m-2">
+    <div class="card-body">
+        <form method="POST">
+            <h2>Add Comment</h2>
+            {% csrf_token %}
+        {{comment_form | crispy}}
+        <button class="btn btn-warning">SUBMIT</button>
+        </form>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Order History</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Car</th>
+            <th>Ordered At</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>{{ order.car.name }}</td>
+                <td>{{ order.ordered_at }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

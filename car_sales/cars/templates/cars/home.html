@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to Car Sales</h1>
+    <p class="lead">Find your dream car with us!</p>
+    <hr class="my-4">
+    <img src="{% static 'images/car_front_page.jpg' %}" alt="Car" class="img-fluid">
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <h4>Filter by Brand</h4>
+        <form method="get">
+            <select name="brand" class="form-control" onchange="this.form.submit()">
+                <option value="">All Brands</option>
+                {% for brand in brands %}
+                    <option value="{{ brand.name }}" {% if request.GET.brand == brand.name %}selected{% endif %}>{{ brand.name }}</option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            {% for car in cars %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{{ car.image.url }}" class="card-img-top" alt="{{ car.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ car.name }}</h5>
+                            <p class="card-text">${{ car.price }}</p>
+                            <a href="{% url 'car-detail' car.pk %}" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

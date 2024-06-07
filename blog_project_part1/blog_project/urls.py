@@ -5,8 +5,8 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name="homepage"),
+    path('category/<slug:category_slug>/', views.home, name="category_wise_post"),
     path('author/', include('Author.urls')), 
-    path('profiles/', include('Profiles.urls')), 
     path('post/', include('Posts.urls')), 
     path('category/', include('Categories.urls')), 
 ]
